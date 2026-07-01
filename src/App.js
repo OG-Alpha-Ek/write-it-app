@@ -32,7 +32,7 @@ const App = () => {
   // Load marked dynamically when needed for preview
   useEffect(() => {
     if (viewMode === 'preview' && extractedText) {
-      import('https://esm.sh/marked').then((module) => {
+      import('marked').then((module) => {
         setPreviewHtml(module.marked(extractedText));
       }).catch(err => {
         console.error("Failed to load marked:", err);
@@ -194,7 +194,7 @@ const App = () => {
   const handleDownloadWord = async () => {
     setDownloading(true);
     try {
-      const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle } = await import('https://esm.sh/docx@8.5.0');
+      const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle } = await import('docx');
       
       const lines = extractedText.split('\n');
       const children = [];
@@ -268,7 +268,7 @@ const App = () => {
   const handleDownloadExcel = async () => {
     setDownloading(true);
     try {
-      const XLSX = await import('https://esm.sh/xlsx');
+      const XLSX = await import('xlsx');
       const lines = extractedText.split('\n');
       const tables = [];
       let currentTable = null;
@@ -315,7 +315,7 @@ const App = () => {
   const handleDownloadPDF = async () => {
     setDownloading(true);
     try {
-      const module = await import('https://esm.sh/marked');
+      const module = await import('marked');
       const htmlContent = module.marked(extractedText);
       
       // Load html2pdf dynamically
